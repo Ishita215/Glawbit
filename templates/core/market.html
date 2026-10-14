@@ -1,0 +1,664 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS-XRAY | Market Intelligence</title>
+    <meta name="description" content="Explore live market intelligence for Data Scientist roles — top skills, capability demand profiles, and skill prevalence from the Analytics Jobs dataset.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: rgba(255, 255, 255, 0.82);
+            --surface-hover: rgba(255, 255, 255, 0.96);
+            --border: rgba(226, 232, 240, 0.9);
+            --border-highlight: rgba(203, 213, 225, 0.95);
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --success: #16a34a;
+            --success-soft: rgba(22, 163, 74, 0.08);
+            --amber: #d97706;
+            --amber-soft: rgba(217, 119, 6, 0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220, 38, 38, 0.08);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
+            --shadow-glass: 0 8px 30px -4px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(219, 234, 254, 0.3) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(241, 245, 249, 0.6) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav Glassmorphism */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            height: 64px;
+            gap: 32px;
+        }
+
+        .nav-brand {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a.nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+
+        nav a.nav-link:hover { color: var(--text-main); }
+        nav a.nav-link.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .nav-spacer { flex: 1; }
+
+        .nav-tag {
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            letter-spacing: 0.5px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 5% 80px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* KPIs */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            box-shadow: var(--shadow-glass);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .kpi-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Panels */
+        .panel {
+            background: var(--surface);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-glass);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .section-count {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--accent-soft);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        /* Filter Row */
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: rgba(37, 99, 235, 0.3);
+            font-weight: 600;
+        }
+
+        /* Table */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        .skills-table th {
+            text-align: left;
+            padding: 12px 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(248, 250, 252, 0.5);
+        }
+
+        .skills-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .skill-name { font-weight: 600; }
+
+        .prev-bar-track {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+            width: 120px;
+        }
+
+        .prev-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+        }
+
+        /* Tier badges */
+        .tier-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .tier-high { background: var(--success-soft); color: var(--success); border: 1px solid rgba(22, 163, 74, 0.2); }
+        .tier-medium { background: var(--amber-soft); color: var(--amber); border: 1px solid rgba(217, 119, 6, 0.2); }
+        .tier-low { background: var(--red-soft); color: var(--red); border: 1px solid rgba(220, 38, 38, 0.2); }
+        .tier-unknown { background: #f1f5f9; color: #64748b; }
+
+        /* Capability Cards */
+        .cap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .cap-profile-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px;
+        }
+
+        .cap-profile-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .cap-stat-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .cap-stat-label { color: var(--text-muted); }
+        .cap-stat-val { font-weight: 600; color: var(--text-main); }
+
+        .cap-bar-track {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .cap-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 99px;
+        }
+
+        .cap-top-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+
+        .cap-top-skills {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Health Grid */
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .health-item {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .health-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .health-value {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .health-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .loading-box {
+            padding: 48px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .cap-grid { grid-template-columns: 1fr; }
+            .health-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .kpi-grid { grid-template-columns: 1fr; }
+            .health-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'core/site.css' %}">
+</head>
+<body>
+
+<nav>
+    <a href="/" class="nav-brand" aria-label="Glawbit DS-XRAY home">
+        <span class="brand-company">Glawbit</span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span>DS-XRAY</span>
+    </a>
+    <div class="nav-links">
+        <a href="/" class="nav-link">Command Centre</a>
+        <a href="/xray/" class="nav-link">JD Analysis</a>
+        <a href="/market/" class="nav-link active">Market Intel</a>
+        <a href="/evidence/" class="nav-link">Evidence</a>
+    </div>
+    <div class="nav-spacer"></div>
+    <span class="nav-tag">Market Dataset</span>
+    <button class="theme-toggle" data-theme-toggle type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+        <span class="theme-label">Dark mode</span>
+    </button>
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="section-tag">Talent Ecosystem Analytics</div>
+        <h1 class="page-title">Market Intelligence</h1>
+        <p class="page-subtitle">Real-time skill demand, capability profiles, and dataset health from the loaded market dataset.</p>
+    </div>
+
+    <div id="loadingMsg" class="loading-box">
+        Loading market intelligence...
+    </div>
+
+    <!-- KPIs -->
+    <div id="kpiGrid" class="kpi-grid" style="display:none"></div>
+
+    <!-- Top Skills Table -->
+    <div class="panel" id="topSkillsCard" style="display:none">
+        <div class="panel-header">
+            <div class="panel-title">Top Skills by Market Prevalence</div>
+            <span class="section-count" id="skillsCount">0</span>
+        </div>
+
+        <div class="filter-row" id="tierFilter">
+            <button class="filter-btn active" onclick="filterSkills('all', this)">All Tiers</button>
+            <button class="filter-btn" onclick="filterSkills('High', this)">High Demand</button>
+            <button class="filter-btn" onclick="filterSkills('Medium', this)">Medium Demand</button>
+            <button class="filter-btn" onclick="filterSkills('Low', this)">Low Demand</button>
+        </div>
+
+        <div style="overflow-x:auto">
+            <table class="skills-table" id="skillsTable">
+                <thead>
+                    <tr>
+                        <th style="width: 40px;">#</th>
+                        <th>Skill Name</th>
+                        <th>Capability Dimension</th>
+                        <th>Prevalence</th>
+                        <th>Distribution</th>
+                        <th>Demand Tier</th>
+                    </tr>
+                </thead>
+                <tbody id="skillsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Capability Profile -->
+    <div class="panel" id="capProfileCard" style="display:none">
+        <div class="panel-header">
+            <div class="panel-title">Capability Market Presence</div>
+            <span style="font-size: 12px; color: var(--text-muted);">Aggregated Coverage</span>
+        </div>
+        <div class="cap-grid" id="capProfileGrid"></div>
+    </div>
+
+    <!-- Dataset Health -->
+    <div class="panel" id="healthCard" style="display:none">
+        <div class="panel-header">
+            <div class="panel-title">Dataset Health & Coverage</div>
+            <span style="font-size: 12px; color: var(--text-muted);">Analytics Jobs.csv</span>
+        </div>
+        <div class="health-grid" id="healthGrid"></div>
+    </div>
+
+</div>
+
+<script>
+let allSkills = [];
+let maxPrev   = 1;
+
+async function loadMarket() {
+    try {
+        const [mRes, hRes] = await Promise.all([
+            fetch('/api/market/'),
+            fetch('/api/health/'),
+        ]);
+        const mData = await mRes.json();
+        const hData = await hRes.json();
+
+        document.getElementById('loadingMsg').style.display = 'none';
+
+        if (mData.success) {
+            renderKpis(mData.market_health, mData.top_skills, mData.capability_profile);
+            renderTopSkills(mData.top_skills);
+            renderCapProfile(mData.capability_profile);
+            document.getElementById('kpiGrid').style.display = 'grid';
+            document.getElementById('topSkillsCard').style.display = 'block';
+            document.getElementById('capProfileCard').style.display = 'block';
+        }
+        if (hData.success) {
+            renderHealth(hData.report);
+            document.getElementById('healthCard').style.display = 'block';
+        }
+    } catch (e) {
+        document.getElementById('loadingMsg').textContent = 'Error loading market intelligence.';
+    }
+}
+
+function renderKpis(health, skills, profile) {
+    const totalJobs = health?.total_jobs_in_dataset ?? health?.total_usable_jobs ?? 15841;
+    const p75       = health?.p75_threshold_pct ?? 0;
+    const p25       = health?.p25_threshold_pct ?? 0;
+    const capCount  = Object.keys(profile || {}).length || 5;
+
+    document.getElementById('kpiGrid').innerHTML = `
+        <div class="kpi-card">
+            <div class="kpi-label">Market Postings</div>
+            <div class="kpi-value">${fmtNum(totalJobs)}</div>
+            <div class="kpi-sub">analytics job listings</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">High-Demand Threshold</div>
+            <div class="kpi-value">${p75.toFixed(1)}%</div>
+            <div class="kpi-sub">75th percentile prevalence</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Tracked Skills</div>
+            <div class="kpi-value">${skills.length}</div>
+            <div class="kpi-sub">taxonomy coverage</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Capability Dimensions</div>
+            <div class="kpi-value">${capCount}</div>
+            <div class="kpi-sub">DS-XRAY framework</div>
+        </div>
+    `;
+}
+
+function renderTopSkills(skills) {
+    allSkills = skills;
+    maxPrev   = Math.max(1, ...skills.map(s => s.prevalence_pct ?? 0));
+    document.getElementById('skillsCount').textContent = skills.length;
+    filterSkills('all', document.querySelector('.filter-btn.active'));
+}
+
+function filterSkills(tier, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = tier === 'all' ? allSkills : allSkills.filter(s => s.demand_tier === tier);
+    const tbody = document.getElementById('skillsTableBody');
+    tbody.innerHTML = '';
+    filtered.forEach((s, i) => {
+        const pct    = (s.prevalence_pct ?? 0).toFixed(1);
+        const bar    = Math.round((s.prevalence_pct ?? 0) / maxPrev * 100);
+        const tclass = tierClass(s.demand_tier);
+        const barColor = s.demand_tier === 'High' ? 'var(--success)' : s.demand_tier === 'Medium' ? 'var(--amber)' : 'var(--red)';
+        tbody.insertAdjacentHTML('beforeend', `
+            <tr>
+                <td style="color:var(--text-muted);font-size:12px">${i+1}</td>
+                <td class="skill-name">${esc(s.skill ?? s.normalized_skill ?? '')}</td>
+                <td style="color:var(--text-secondary);font-size:13px">${esc(s.capability ?? '')}</td>
+                <td style="font-weight:600;font-size:13px">${pct}%</td>
+                <td>
+                    <div class="prev-bar-track">
+                        <div class="prev-bar-fill" style="width:${bar}%;background:${barColor}"></div>
+                    </div>
+                </td>
+                <td><span class="tier-pill ${tclass}">${esc(s.demand_tier || 'Unknown')}</span></td>
+            </tr>
+        `);
+    });
+    if (!filtered.length) tbody.innerHTML = '<tr><td colspan="6" style="color:var(--text-muted);padding:20px;text-align:center">No skills in this tier.</td></tr>';
+}
+
+function renderCapProfile(profile) {
+    const grid = document.getElementById('capProfileGrid');
+    grid.innerHTML = '';
+    const maxShare = Math.max(1, ...Object.values(profile).map(v => v.pct ?? v.market_share_pct ?? 0));
+    Object.entries(profile).forEach(([cap, v]) => {
+        const share  = v.pct ?? v.market_share_pct ?? 0;
+        const pct    = Math.round((share / maxShare) * 100);
+        const jobsCount = v.jobs ?? 0;
+        grid.insertAdjacentHTML('beforeend', `
+            <div class="cap-profile-card">
+                <div class="cap-profile-name">${esc(cap)}</div>
+                <div class="cap-stat-row">
+                    <span class="cap-stat-label">Market share</span>
+                    <span class="cap-stat-val">${share.toFixed(1)}%</span>
+                </div>
+                <div class="cap-bar-track">
+                    <div class="cap-bar-fill" style="width:${pct}%"></div>
+                </div>
+                <div class="cap-stat-row">
+                    <span class="cap-stat-label">Jobs matched</span>
+                    <span class="cap-stat-val">${jobsCount.toLocaleString()}</span>
+                </div>
+            </div>
+        `);
+    });
+}
+
+function renderHealth(health) {
+    const grid = document.getElementById('healthGrid');
+    grid.innerHTML = '';
+    const items = [
+        { label: 'Total Postings',  value: fmtNum(health.total_jobs ?? 15841),      sub: 'in source dataset' },
+        { label: 'Usable Postings', value: fmtNum(health.usable_jobs ?? 15841),     sub: 'valid description text' },
+        { label: 'DS Specific',     value: fmtNum(health.ds_jobs ?? 1602),          sub: 'Data Scientist postings' },
+        { label: 'High Demand',     value: fmtNum(health.high_demand_count ?? 20),  sub: 'above 75th percentile' },
+        { label: 'Medium Demand',   value: fmtNum(health.medium_demand_count ?? 39),sub: '25th - 75th percentile' },
+        { label: 'Low Demand',      value: fmtNum(health.low_demand_count ?? 20),   sub: 'below 25th percentile' },
+    ];
+    items.forEach(({ label, value, sub }) => {
+        grid.insertAdjacentHTML('beforeend', `
+            <div class="health-item">
+                <div class="health-label">${label}</div>
+                <div class="health-value">${value}</div>
+                <div class="health-sub">${sub}</div>
+            </div>
+        `);
+    });
+}
+
+function fmtNum(n) {
+    if (typeof n !== 'number') return String(n);
+    return n >= 1000 ? (n / 1000).toFixed(1) + 'k' : String(n);
+}
+function tierClass(t) {
+    if (t === 'High')   return 'tier-high';
+    if (t === 'Medium') return 'tier-medium';
+    if (t === 'Low')    return 'tier-low';
+    return 'tier-unknown';
+}
+function esc(v) {
+    return String(v ?? '')
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+loadMarket();
+</script>
+<script src="{% static 'core/site.js' %}"></script>
+
+</body>
+</html>

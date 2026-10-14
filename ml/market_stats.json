@@ -1,0 +1,789 @@
+{
+  "Hadoop": {
+    "normalized_skill": "Hadoop",
+    "capability": "Big Data",
+    "job_count": 350,
+    "total_jobs": 15840,
+    "prevalence_pct": 2.21,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Apache Spark": {
+    "normalized_skill": "Apache Spark",
+    "capability": "Big Data",
+    "job_count": 323,
+    "total_jobs": 15840,
+    "prevalence_pct": 2.04,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "PySpark": {
+    "normalized_skill": "PySpark",
+    "capability": "Big Data",
+    "job_count": 6,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.04,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Hive": {
+    "normalized_skill": "Hive",
+    "capability": "Big Data",
+    "job_count": 216,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.36,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "HBase": {
+    "normalized_skill": "HBase",
+    "capability": "Big Data",
+    "job_count": 83,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.52,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Kafka": {
+    "normalized_skill": "Kafka",
+    "capability": "Big Data",
+    "job_count": 32,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.2,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Flink": {
+    "normalized_skill": "Flink",
+    "capability": "Big Data",
+    "job_count": 1,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.01,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Data Lake": {
+    "normalized_skill": "Data Lake",
+    "capability": "Big Data",
+    "job_count": 7,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.04,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Databricks": {
+    "normalized_skill": "Databricks",
+    "capability": "Big Data",
+    "job_count": 0,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.0,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Distributed Computing": {
+    "normalized_skill": "Distributed Computing",
+    "capability": "Big Data",
+    "job_count": 25,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.16,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Big Data": {
+    "normalized_skill": "Big Data",
+    "capability": "Big Data",
+    "job_count": 422,
+    "total_jobs": 15840,
+    "prevalence_pct": 2.66,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Airflow": {
+    "normalized_skill": "Airflow",
+    "capability": "Big Data",
+    "job_count": 0,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.0,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Data Pipelines / ETL": {
+    "normalized_skill": "Data Pipelines / ETL",
+    "capability": "Big Data",
+    "job_count": 217,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.37,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "AWS": {
+    "normalized_skill": "AWS",
+    "capability": "Big Data",
+    "job_count": 131,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.83,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "GCP / BigQuery": {
+    "normalized_skill": "GCP / BigQuery",
+    "capability": "Big Data",
+    "job_count": 11,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.07,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Azure": {
+    "normalized_skill": "Azure",
+    "capability": "Big Data",
+    "job_count": 119,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.75,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Snowflake": {
+    "normalized_skill": "Snowflake",
+    "capability": "Big Data",
+    "job_count": 0,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.0,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Docker": {
+    "normalized_skill": "Docker",
+    "capability": "Big Data",
+    "job_count": 44,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.28,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Kubernetes": {
+    "normalized_skill": "Kubernetes",
+    "capability": "Big Data",
+    "job_count": 5,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.03,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Statistics": {
+    "normalized_skill": "Statistics",
+    "capability": "Maths / Statistics",
+    "job_count": 533,
+    "total_jobs": 15840,
+    "prevalence_pct": 3.36,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Probability": {
+    "normalized_skill": "Probability",
+    "capability": "Maths / Statistics",
+    "job_count": 0,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.0,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Mathematics": {
+    "normalized_skill": "Mathematics",
+    "capability": "Maths / Statistics",
+    "job_count": 132,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.83,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Hypothesis Testing / A-B Testing": {
+    "normalized_skill": "Hypothesis Testing / A-B Testing",
+    "capability": "Maths / Statistics",
+    "job_count": 4,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.03,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Regression Analysis": {
+    "normalized_skill": "Regression Analysis",
+    "capability": "Maths / Statistics",
+    "job_count": 274,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.73,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Time Series / Forecasting": {
+    "normalized_skill": "Time Series / Forecasting",
+    "capability": "Maths / Statistics",
+    "job_count": 338,
+    "total_jobs": 15840,
+    "prevalence_pct": 2.13,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Bayesian Methods": {
+    "normalized_skill": "Bayesian Methods",
+    "capability": "Maths / Statistics",
+    "job_count": 3,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.02,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "ANOVA": {
+    "normalized_skill": "ANOVA",
+    "capability": "Maths / Statistics",
+    "job_count": 30,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.19,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Experimental Design": {
+    "normalized_skill": "Experimental Design",
+    "capability": "Maths / Statistics",
+    "job_count": 1,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.01,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Mathematical Optimization": {
+    "normalized_skill": "Mathematical Optimization",
+    "capability": "Maths / Statistics",
+    "job_count": 246,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.55,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Linear Algebra / Calculus": {
+    "normalized_skill": "Linear Algebra / Calculus",
+    "capability": "Maths / Statistics",
+    "job_count": 2,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.01,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Causal Inference": {
+    "normalized_skill": "Causal Inference",
+    "capability": "Maths / Statistics",
+    "job_count": 0,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.0,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Python": {
+    "normalized_skill": "Python",
+    "capability": "Coding",
+    "job_count": 1026,
+    "total_jobs": 15840,
+    "prevalence_pct": 6.48,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "R": {
+    "normalized_skill": "R",
+    "capability": "Coding",
+    "job_count": 10,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.06,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "SQL": {
+    "normalized_skill": "SQL",
+    "capability": "Coding",
+    "job_count": 1829,
+    "total_jobs": 15840,
+    "prevalence_pct": 11.55,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Pandas": {
+    "normalized_skill": "Pandas",
+    "capability": "Coding",
+    "job_count": 5,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.03,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "NumPy": {
+    "normalized_skill": "NumPy",
+    "capability": "Coding",
+    "job_count": 15,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.09,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Scikit-Learn": {
+    "normalized_skill": "Scikit-Learn",
+    "capability": "Coding",
+    "job_count": 0,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.0,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Java": {
+    "normalized_skill": "Java",
+    "capability": "Coding",
+    "job_count": 982,
+    "total_jobs": 15840,
+    "prevalence_pct": 6.2,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Scala": {
+    "normalized_skill": "Scala",
+    "capability": "Coding",
+    "job_count": 164,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.04,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "C++": {
+    "normalized_skill": "C++",
+    "capability": "Coding",
+    "job_count": 0,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.0,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "JavaScript": {
+    "normalized_skill": "JavaScript",
+    "capability": "Coding",
+    "job_count": 646,
+    "total_jobs": 15840,
+    "prevalence_pct": 4.08,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Programming": {
+    "normalized_skill": "Programming",
+    "capability": "Coding",
+    "job_count": 860,
+    "total_jobs": 15840,
+    "prevalence_pct": 5.43,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Git / Version Control": {
+    "normalized_skill": "Git / Version Control",
+    "capability": "Coding",
+    "job_count": 103,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.65,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "API / Web Framework": {
+    "normalized_skill": "API / Web Framework",
+    "capability": "Coding",
+    "job_count": 96,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.61,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Data Wrangling": {
+    "normalized_skill": "Data Wrangling",
+    "capability": "Coding",
+    "job_count": 24,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.15,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "MATLAB": {
+    "normalized_skill": "MATLAB",
+    "capability": "Coding",
+    "job_count": 95,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.6,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "SAS": {
+    "normalized_skill": "SAS",
+    "capability": "Coding",
+    "job_count": 909,
+    "total_jobs": 15840,
+    "prevalence_pct": 5.74,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Excel / VBA": {
+    "normalized_skill": "Excel / VBA",
+    "capability": "Coding",
+    "job_count": 770,
+    "total_jobs": 15840,
+    "prevalence_pct": 4.86,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Machine Learning": {
+    "normalized_skill": "Machine Learning",
+    "capability": "AI / ML",
+    "job_count": 770,
+    "total_jobs": 15840,
+    "prevalence_pct": 4.86,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Deep Learning": {
+    "normalized_skill": "Deep Learning",
+    "capability": "AI / ML",
+    "job_count": 166,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.05,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Artificial Intelligence": {
+    "normalized_skill": "Artificial Intelligence",
+    "capability": "AI / ML",
+    "job_count": 113,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.71,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "NLP": {
+    "normalized_skill": "NLP",
+    "capability": "AI / ML",
+    "job_count": 285,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.8,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Computer Vision": {
+    "normalized_skill": "Computer Vision",
+    "capability": "AI / ML",
+    "job_count": 64,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.4,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Neural Networks": {
+    "normalized_skill": "Neural Networks",
+    "capability": "AI / ML",
+    "job_count": 72,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.45,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "TensorFlow": {
+    "normalized_skill": "TensorFlow",
+    "capability": "AI / ML",
+    "job_count": 18,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.11,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "PyTorch": {
+    "normalized_skill": "PyTorch",
+    "capability": "AI / ML",
+    "job_count": 15,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.09,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Keras": {
+    "normalized_skill": "Keras",
+    "capability": "AI / ML",
+    "job_count": 7,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.04,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Gradient Boosting / XGBoost": {
+    "normalized_skill": "Gradient Boosting / XGBoost",
+    "capability": "AI / ML",
+    "job_count": 1,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.01,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Tree-Based Models": {
+    "normalized_skill": "Tree-Based Models",
+    "capability": "AI / ML",
+    "job_count": 12,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.08,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Predictive Modelling": {
+    "normalized_skill": "Predictive Modelling",
+    "capability": "AI / ML",
+    "job_count": 334,
+    "total_jobs": 15840,
+    "prevalence_pct": 2.11,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Classification": {
+    "normalized_skill": "Classification",
+    "capability": "AI / ML",
+    "job_count": 4,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.03,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Clustering / Unsupervised": {
+    "normalized_skill": "Clustering / Unsupervised",
+    "capability": "AI / ML",
+    "job_count": 46,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.29,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Recommendation Systems": {
+    "normalized_skill": "Recommendation Systems",
+    "capability": "AI / ML",
+    "job_count": 7,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.04,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Feature Engineering": {
+    "normalized_skill": "Feature Engineering",
+    "capability": "AI / ML",
+    "job_count": 7,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.04,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Model Evaluation / Tuning": {
+    "normalized_skill": "Model Evaluation / Tuning",
+    "capability": "AI / ML",
+    "job_count": 53,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.33,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Generative AI / LLMs": {
+    "normalized_skill": "Generative AI / LLMs",
+    "capability": "AI / ML",
+    "job_count": 6,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.04,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "MLOps / Model Deployment": {
+    "normalized_skill": "MLOps / Model Deployment",
+    "capability": "AI / ML",
+    "job_count": 0,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.0,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Tableau": {
+    "normalized_skill": "Tableau",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 235,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.48,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Power BI": {
+    "normalized_skill": "Power BI",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 106,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.67,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Data Visualization": {
+    "normalized_skill": "Data Visualization",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 156,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.98,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Dashboards": {
+    "normalized_skill": "Dashboards",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 60,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.38,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Business Intelligence": {
+    "normalized_skill": "Business Intelligence",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 252,
+    "total_jobs": 15840,
+    "prevalence_pct": 1.59,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Data Storytelling": {
+    "normalized_skill": "Data Storytelling",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 2,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.01,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Communication / Presentation": {
+    "normalized_skill": "Communication / Presentation",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 917,
+    "total_jobs": 15840,
+    "prevalence_pct": 5.79,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Stakeholder Management": {
+    "normalized_skill": "Stakeholder Management",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 152,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.96,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Reporting": {
+    "normalized_skill": "Reporting",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 694,
+    "total_jobs": 15840,
+    "prevalence_pct": 4.38,
+    "demand_tier": "High",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "BI Tools (Looker / Qlik)": {
+    "normalized_skill": "BI Tools (Looker / Qlik)",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 85,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.54,
+    "demand_tier": "Medium",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "Visualisation Libraries": {
+    "normalized_skill": "Visualisation Libraries",
+    "capability": "Dashboard & Storytelling",
+    "job_count": 2,
+    "total_jobs": 15840,
+    "prevalence_pct": 0.01,
+    "demand_tier": "Low",
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53
+  },
+  "_meta": {
+    "total_usable_jobs": 15840,
+    "p25_threshold": 0.04,
+    "p75_threshold": 1.53,
+    "skills_tracked": 77,
+    "source": "Analytics Jobs.csv"
+  }
+}

@@ -1,0 +1,1074 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS-XRAY | JD Analysis & Calibration</title>
+    <meta name="description" content="Deep-scan a Data Scientist job description against empirical outcome evidence and live market data. Get capability scores, stress diagnostics, and calibrated rewrites.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: rgba(255, 255, 255, 0.82);
+            --surface-hover: rgba(255, 255, 255, 0.96);
+            --surface2: #ffffff;
+            --border: rgba(226, 232, 240, 0.9);
+            --border2: rgba(203, 213, 225, 0.95);
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --success: #16a34a;
+            --success-soft: rgba(22, 163, 74, 0.08);
+            --amber: #d97706;
+            --amber-soft: rgba(217, 119, 6, 0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220, 38, 38, 0.08);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
+            --shadow-glass: 0 8px 30px -4px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(219, 234, 254, 0.3) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(241, 245, 249, 0.6) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav Glassmorphism */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            height: 64px;
+            gap: 32px;
+        }
+
+        .nav-brand {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a.nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+
+        nav a.nav-link:hover { color: var(--text-main); }
+        nav a.nav-link.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .nav-spacer { flex: 1; }
+
+        .nav-tag {
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            letter-spacing: 0.5px;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 5% 80px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Card */
+        .card {
+            background: var(--surface);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-glass);
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .preset-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .preset-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .btn-preset {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--border);
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+        }
+
+        .btn-preset:hover {
+            background: #ffffff;
+            color: var(--accent);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-main);
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.15s ease;
+            box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03);
+        }
+
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-action-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #ffffff;
+            border: 1px solid var(--accent);
+            padding: 10px 22px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .status-msg {
+            font-size: 13px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .status-success { color: var(--success); }
+        .status-error { color: var(--red); }
+
+        /* Results section */
+        .results-section { display: none; }
+
+        /* Score grid */
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .score-card {
+            background: var(--surface);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-glass);
+            position: relative;
+        }
+
+        .score-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .score-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .score-unit {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .score-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+            display: inline-block;
+        }
+
+        /* Section headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .section-count {
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Capability bars */
+        .cap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .cap-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13.5px;
+            margin-bottom: 6px;
+        }
+
+        .cap-name { font-weight: 600; color: var(--text-main); }
+        .cap-score { font-weight: 600; color: var(--text-secondary); }
+
+        .bar-track {
+            height: 7px;
+            background: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 0.4s ease;
+        }
+
+        .bar-fill.strong { background: var(--accent); }
+        .bar-fill.medium { background: var(--amber); }
+        .bar-fill.weak   { background: var(--red); }
+
+        .cap-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .skill-chip {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .skill-chip.high { border-color: rgba(22, 163, 74, 0.3); color: var(--success); }
+        .skill-chip.medium { border-color: rgba(217, 119, 6, 0.3); color: var(--amber); }
+        .skill-chip.low { border-color: rgba(220, 38, 38, 0.3); color: var(--red); }
+
+        /* Demand grid */
+        .demand-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .demand-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .demand-card-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .demand-card.high .demand-card-title { color: var(--success); }
+        .demand-card.medium .demand-card-title { color: var(--amber); }
+        .demand-card.low .demand-card-title { color: var(--red); }
+
+        .demand-count {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .demand-skills {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Role Families */
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .family-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .family-name { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+        .family-bar-track { height: 6px; background: #e2e8f0; border-radius: 99px; margin-bottom: 8px; }
+        .family-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; }
+        .family-signals { font-size: 12px; color: var(--text-secondary); }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px 14px;
+            color: var(--text-muted);
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(248, 250, 252, 0.5);
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .diff-pos { color: var(--success); font-weight: 600; }
+        .diff-neg { color: var(--red); font-weight: 600; }
+        .diff-zero { color: var(--text-muted); }
+
+        .status-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .pill-aligned { background: var(--success-soft); color: var(--success); }
+        .pill-above { background: var(--accent-soft); color: var(--accent); }
+        .pill-over { background: var(--amber-soft); color: var(--amber); }
+        .pill-under { background: var(--red-soft); color: var(--red); }
+        .pill-missing { background: #f1f5f9; color: var(--text-muted); }
+
+        /* Recommendations */
+        .rec-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .rec-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px;
+        }
+
+        .rec-card.sev-high { border-left: 4px solid var(--red); }
+        .rec-card.sev-medium { border-left: 4px solid var(--amber); }
+        .rec-card.sev-low { border-left: 4px solid var(--accent); }
+
+        .rec-signal { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+        .rec-evidence { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+        .rec-action {
+            background: rgba(248, 250, 252, 0.7);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+        .rec-action-label {
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .rec-tags { display: flex; gap: 8px; margin-top: 10px; }
+        .rec-tag {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .tag-keep   { background: var(--success-soft); color: var(--success); }
+        .tag-relax  { background: var(--amber-soft); color: var(--amber); }
+        .tag-remove { background: var(--red-soft); color: var(--red); }
+        .tag-prefer { background: var(--accent-soft); color: var(--accent); }
+        .tag-structure { background: #f1f5f9; color: var(--text-secondary); }
+
+        /* Calibrated Panels */
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .jd-panel {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .jd-panel-title {
+            padding: 10px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            background: #f8fafc;
+        }
+
+        .jd-panel-body {
+            padding: 16px;
+            white-space: pre-wrap;
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-secondary);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* Gaps */
+        .gap-item {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .gap-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--amber);
+        }
+
+        .gap-text strong { color: var(--text-main); margin-right: 6px; }
+        .gap-text span { color: var(--text-secondary); }
+
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 900px) {
+            .score-grid { grid-template-columns: repeat(2, 1fr); }
+            .demand-grid { grid-template-columns: 1fr; }
+            .family-grid { grid-template-columns: 1fr; }
+            .before-after { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .score-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'core/site.css' %}">
+</head>
+<body>
+
+<nav>
+    <a href="/" class="nav-brand" aria-label="Glawbit DS-XRAY home">
+        <span class="brand-company">Glawbit</span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span>DS-XRAY</span>
+    </a>
+    <div class="nav-links">
+        <a href="/" class="nav-link">Command Centre</a>
+        <a href="/xray/" class="nav-link active">JD Analysis</a>
+        <a href="/market/" class="nav-link">Market Intel</a>
+        <a href="/evidence/" class="nav-link">Evidence</a>
+    </div>
+    <div class="nav-spacer"></div>
+    <span class="nav-tag">Diagnostic Tool</span>
+    <button class="theme-toggle" data-theme-toggle type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+        <span class="theme-label">Dark mode</span>
+    </button>
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="section-tag">Audit Pipeline</div>
+        <h1 class="page-title">Job Description Audit & Calibration</h1>
+        <p class="page-subtitle">Input any Data Scientist job specification to evaluate capability distribution, requirement stress, and generate a calibrated specification.</p>
+    </div>
+
+    <!-- Input Card -->
+    <div class="card">
+        <div class="card-header-row">
+            <div class="card-title">Job Description Text</div>
+        </div>
+
+        <textarea id="jobDescription" placeholder="Paste the job description specification here..."></textarea>
+
+        <div class="input-action-row">
+            <button id="analyzeBtn" class="btn-primary" onclick="analyzeJD()">
+                Analyze Job Description
+            </button>
+            <div id="statusMsg" class="status-msg status-success">Analysis complete</div>
+            <div id="errorMsg" class="status-msg status-error"></div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="results-section">
+
+        <!-- Scorecard -->
+        <div class="score-grid">
+            <div class="score-card">
+                <div class="score-label">Overall Alignment</div>
+                <div class="score-value" id="sc-overall">--</div>
+                <div class="score-unit">/ 100</div>
+                <span class="score-badge" id="sc-overall-badge" style="background:var(--accent-soft);color:var(--accent)">--</span>
+            </div>
+            <div class="score-card">
+                <div class="score-label">Outcome Fit</div>
+                <div class="score-value" id="sc-success">--</div>
+                <div class="score-unit">/ 100</div>
+                <span class="score-badge" id="sc-success-badge" style="background:var(--success-soft);color:var(--success)">--</span>
+            </div>
+            <div class="score-card">
+                <div class="score-label">Market Alignment</div>
+                <div class="score-value" id="sc-market">--</div>
+                <div class="score-unit">/ 100</div>
+                <span class="score-badge" id="sc-market-badge" style="background:var(--amber-soft);color:var(--amber)">--</span>
+            </div>
+            <div class="score-card">
+                <div class="score-label">Structural Balance</div>
+                <div class="score-value" id="sc-balance">--</div>
+                <div class="score-unit">/ 100</div>
+                <span class="score-badge" id="sc-balance-badge" style="background:#f1f5f9;color:var(--text-secondary)">--</span>
+            </div>
+        </div>
+
+        <!-- Capability Breakdown -->
+        <div class="card">
+            <div class="section-header">
+                <div class="section-title">Capability Dimension Distribution</div>
+                <span class="section-count">5 Core Dimensions</span>
+            </div>
+            <div class="cap-list" id="capabilityList"></div>
+        </div>
+
+        <!-- Demand Distribution -->
+        <div class="card">
+            <div class="section-header">
+                <div class="section-title">Extracted Skills Demand Distribution</div>
+                <span style="font-size: 12px; color: var(--text-muted);">Percentile Distribution</span>
+            </div>
+            <div class="demand-grid" id="demandGrid"></div>
+        </div>
+
+        <!-- Role Families (Frankenstein detection) -->
+        <div class="card">
+            <div class="section-header">
+                <div class="section-title">Multi-Role Composition Diagnostic</div>
+                <span class="section-count" id="familyCount">0</span>
+            </div>
+            <div class="family-grid" id="familyGrid"></div>
+        </div>
+
+        <!-- Market Alignment Matrix -->
+        <div class="card">
+            <div class="section-header">
+                <div class="section-title">Market vs Specification Alignment Matrix</div>
+                <span style="font-size: 12px; color: var(--text-muted);">Share Differential</span>
+            </div>
+            <div style="overflow-x:auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capability Dimension</th>
+                            <th>JD Share</th>
+                            <th>Market Share</th>
+                            <th>Differential</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mktTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Actionable Recommendations -->
+        <div class="card">
+            <div class="section-header">
+                <div class="section-title">Calibration Recommendations</div>
+                <span class="section-count" id="recCount">0</span>
+            </div>
+            <div class="rec-list" id="recList"></div>
+        </div>
+
+        <!-- Before & After Calibrated Specification -->
+        <div class="card">
+            <div class="section-header">
+                <div class="section-title">Specification Comparison: Original vs Calibrated Rewrite</div>
+                <span style="font-size: 12px; color: var(--text-muted);">Rule-Based Rewrite</span>
+            </div>
+            <div class="before-after">
+                <div class="jd-panel">
+                    <div class="jd-panel-title">Original Input Specification</div>
+                    <div class="jd-panel-body" id="originalJD"></div>
+                </div>
+                <div class="jd-panel">
+                    <div class="jd-panel-title">Calibrated Specification</div>
+                    <div class="jd-panel-body" id="calibratedJD"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Capability Gaps -->
+        <div class="card">
+            <div class="section-header">
+                <div class="section-title">Identified Capability Gaps</div>
+                <span class="section-count" id="gapCount">0</span>
+            </div>
+            <div id="gapsList"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+let currentJD = '';
+
+async function analyzeJD() {
+    const jd = document.getElementById('jobDescription').value.trim();
+    const btn = document.getElementById('analyzeBtn');
+    const statusMsg = document.getElementById('statusMsg');
+    const errorMsg  = document.getElementById('errorMsg');
+    const resultsSection = document.getElementById('resultsSection');
+
+    statusMsg.style.display = 'none';
+    errorMsg.style.display  = 'none';
+
+    if (!jd) {
+        errorMsg.textContent = 'Please enter or select a job description.';
+        errorMsg.style.display = 'block';
+        return;
+    }
+    currentJD = jd;
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div> Processing...';
+
+    try {
+        const res = await fetch('/analyze/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ job_description: jd }),
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Analysis failed.');
+
+        renderAll(data.result);
+        resultsSection.style.display = 'block';
+        statusMsg.style.display = 'block';
+        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (err) {
+        errorMsg.textContent = err.message;
+        errorMsg.style.display = 'block';
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Analyze Job Description';
+    }
+}
+
+function renderAll(r) {
+    renderScores(r);
+    renderCapabilities(r);
+    renderMarketTable(r);
+    renderDemand(r);
+    renderRoleFamilies(r);
+    renderRecommendations(r);
+    renderGaps(r);
+    renderRewrite(r);
+}
+
+function renderScores(r) {
+    const sc = r.scorecard || {};
+    const set = (id, val, badgeId, badgeTxt) => {
+        document.getElementById(id).textContent = val == null ? '--' : Number(val).toFixed(1);
+        if (badgeId) document.getElementById(badgeId).textContent = badgeTxt || '';
+    };
+    const composite = sc.composite?.score;
+    const outcome = sc.outcome_fit?.score;
+    const demand = sc.demand_alignment?.score;
+    const balance = sc.structural_balance?.score;
+    set('sc-overall', composite, 'sc-overall-badge', gradeBadge(composite));
+    set('sc-success', outcome, 'sc-success-badge', gradeBadge(outcome));
+    set('sc-market', demand, 'sc-market-badge', gradeBadge(demand));
+    set('sc-balance', balance, 'sc-balance-badge', gradeBadge(balance));
+}
+
+function gradeBadge(v) {
+    if (v == null) return '--';
+    if (v >= 80) return 'Optimal';
+    if (v >= 65) return 'Good';
+    if (v >= 50) return 'Moderate';
+    return 'Attention';
+}
+
+function renderCapabilities(r) {
+    const container = document.getElementById('capabilityList');
+    container.innerHTML = '';
+    const vector = r.capability_vector || {};
+    const byCapability = r.skills_by_capability || {};
+    const maxCount = Math.max(1, ...Object.values(vector).map(Number));
+
+    Object.entries(vector).forEach(([cap, rawCount]) => {
+        const count = Number(rawCount) || 0;
+        const score = Math.round((count / maxCount) * 100);
+        const cls = score >= 65 ? 'strong' : score >= 35 ? 'medium' : 'weak';
+        const skills = (byCapability[cap] || []).map(skill => {
+            const skillName = typeof skill === 'string'
+                ? skill
+                : skill.normalized_skill || skill.original_text || '';
+            const enriched = (r.extracted_skills || []).find(
+                item => item.normalized_skill === skillName
+            );
+            const tier = enriched?.demand_tier || '';
+            const t = tier === 'High' ? 'high' : tier === 'Medium' ? 'medium' : 'low';
+            return `<span class="skill-chip ${t}">${esc(skillName)}</span>`;
+        }).join('');
+
+        container.insertAdjacentHTML('beforeend', `
+            <div>
+                <div class="cap-header">
+                    <span class="cap-name">${esc(cap)}</span>
+                    <span class="cap-score">${count} skill${count === 1 ? '' : 's'}</span>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill ${cls}" style="width:${score}%"></div>
+                </div>
+                ${skills ? `<div class="cap-skills">${skills}</div>` : ''}
+            </div>
+        `);
+    });
+    if (!Object.keys(vector).length) container.innerHTML = '<p style="color:var(--text-muted);font-size:13px">No capability data found.</p>';
+}
+
+function renderMarketTable(r) {
+    const tbody = document.getElementById('mktTableBody');
+    tbody.innerHTML = '';
+    const rows = r.market_outcome_matrix?.matrix || [];
+    rows.forEach(item => {
+        const cap = item.capability || 'Unknown capability';
+        const marketShare = Number(item.market_pct ?? 0);
+        const jdShare = Number(item.jd_pct ?? 0);
+        const diff = jdShare - marketShare;
+        const diffRnd = Math.round(diff * 10) / 10;
+        const diffCls = diff > 0 ? 'diff-pos' : diff < 0 ? 'diff-neg' : 'diff-zero';
+        const diffStr = diff > 0 ? `+${diffRnd}` : `${diffRnd}`;
+        const status = item.quadrant_label || item.market_tier || 'Unclassified';
+        tbody.insertAdjacentHTML('beforeend', `
+            <tr>
+                <td><strong>${esc(cap)}</strong></td>
+                <td>${jdShare}%</td>
+                <td>${marketShare.toFixed(1)}%</td>
+                <td class="${diffCls}">${diffStr}%</td>
+                <td><span class="status-pill ${pillClass(status)}">${esc(status)}</span></td>
+            </tr>
+        `);
+    });
+    if (!rows.length) tbody.innerHTML = '<tr><td colspan="5" style="color:var(--text-muted);padding:14px">No alignment matrix records.</td></tr>';
+}
+
+function renderDemand(r) {
+    const grid = document.getElementById('demandGrid');
+    grid.innerHTML = '';
+    const d = r.market_demand || {};
+    [
+        { cls:'high',   label:'High Market Demand',   count: d.high_demand ?? 0,   skills: d.high_skills ?? [] },
+        { cls:'medium', label:'Medium Demand',        count: d.medium_demand ?? 0, skills: d.medium_skills ?? [] },
+        { cls:'low',    label:'Low / Rare Demand',    count: d.low_demand ?? 0,    skills: d.low_skills ?? [] },
+    ].forEach(({ cls, label, count, skills }) => {
+        grid.insertAdjacentHTML('beforeend', `
+            <div class="demand-card ${cls}">
+                <div class="demand-card-title">${label}</div>
+                <div class="demand-count">${count}</div>
+                <div class="demand-skills">${skills.slice(0,6).map(esc).join(', ') || 'None identified'}</div>
+            </div>
+        `);
+    });
+}
+
+function renderRoleFamilies(r) {
+    const grid  = document.getElementById('familyGrid');
+    const count = document.getElementById('familyCount');
+    grid.innerHTML = '';
+    const families = r.role_family_signals || {};
+    const entries = Object.entries(families).filter(([, v]) => (v.signal_strength ?? v.count ?? 0) > 0);
+    count.textContent = `${entries.length} Detected`;
+    if (!entries.length) {
+        grid.innerHTML = '<p style="color:var(--text-muted);font-size:13px">Unified profile: single role focus.</p>';
+        return;
+    }
+    const max = Math.max(...entries.map(([, v]) => v.signal_strength ?? v.count ?? 1));
+    entries.sort((a,b) => (b[1].signal_strength ?? b[1].count ?? 0) - (a[1].signal_strength ?? a[1].count ?? 0)).forEach(([name, v]) => {
+        const strength = v.signal_strength ?? v.count ?? 0;
+        const pct = max > 0 ? Math.round((strength / max) * 100) : 0;
+        const sigs = (v.matched_skills || v.signals || []).slice(0,4).map(esc).join(', ');
+        grid.insertAdjacentHTML('beforeend', `
+            <div class="family-card">
+                <div class="family-name">${esc(name)}</div>
+                <div class="family-bar-track">
+                    <div class="family-bar-fill" style="width:${pct}%"></div>
+                </div>
+                <div class="family-signals">${sigs || '—'}</div>
+            </div>
+        `);
+    });
+}
+
+function renderRecommendations(r) {
+    const list = document.getElementById('recList');
+    const countEl = document.getElementById('recCount');
+    list.innerHTML = '';
+    const recs = r.recommendations || [];
+    countEl.textContent = recs.length;
+    if (!recs.length) {
+        list.innerHTML = '<div class="gap-item"><div class="gap-dot" style="background:var(--success)"></div><div class="gap-text"><strong>Specification Calibrated:</strong><span>No critical requirement issues identified.</span></div></div>';
+        return;
+    }
+    recs.forEach(rec => {
+        const sev = (rec.severity || 'Medium').toLowerCase();
+        const type = (rec.type || rec.rec_type || 'structure').toLowerCase();
+        list.insertAdjacentHTML('beforeend', `
+            <div class="rec-card sev-${sev}">
+                <div class="rec-signal">${esc(rec.signal || '')}</div>
+                <div class="rec-evidence">${esc(rec.evidence || '')}</div>
+                <div class="rec-action">
+                    <div class="rec-action-label">Recommendation</div>
+                    ${esc(rec.recommendation || '')}
+                </div>
+                <div class="rec-tags">
+                    <span class="rec-tag tag-${sev === 'high' ? 'remove' : sev === 'low' ? 'keep' : 'relax'}">${esc(rec.severity || 'Medium')} Priority</span>
+                    <span class="rec-tag tag-structure">${esc(rec.type || rec.rec_type || 'Structure')}</span>
+                </div>
+            </div>
+        `);
+    });
+}
+
+function renderGaps(r) {
+    const list = document.getElementById('gapsList');
+    const countEl = document.getElementById('gapCount');
+    list.innerHTML = '';
+    const stress = r.requirement_stress || {};
+    const missing = stress.missing_dimensions || [];
+    const zero = stress.zero_coverage || [];
+    const gaps = [...new Set([...missing, ...zero])];
+    countEl.textContent = gaps.length;
+    if (!gaps.length) {
+        list.innerHTML = '<div class="gap-item"><div class="gap-dot" style="background:var(--success)"></div><div class="gap-text"><strong>Comprehensive Coverage:</strong><span>The specification addresses all core data science dimensions.</span></div></div>';
+        return;
+    }
+    gaps.forEach(cap => {
+        list.insertAdjacentHTML('beforeend', `
+            <div class="gap-item">
+                <div class="gap-dot"></div>
+                <div class="gap-text">
+                    <strong>${esc(cap)}:</strong>
+                    <span>No explicitly defined requirements found for this dimension.</span>
+                </div>
+            </div>
+        `);
+    });
+}
+
+function renderRewrite(r) {
+    document.getElementById('originalJD').textContent = currentJD;
+    if (r.calibrated_jd) {
+        document.getElementById('calibratedJD').textContent = r.calibrated_jd;
+    } else {
+        // Build rewrite from recommendations
+        const lines = currentJD.split('\n');
+        document.getElementById('calibratedJD').textContent = lines.join('\n');
+    }
+}
+
+function pillClass(status) {
+    switch (status) {
+        case 'Aligned':       return 'pill-aligned';
+        case 'Above Market':  return 'pill-above';
+        case 'Overweighted':  return 'pill-over';
+        case 'Underweighted': return 'pill-under';
+        case 'Missing':       return 'pill-missing';
+        default:              return 'pill-aligned';
+    }
+}
+
+function esc(v) {
+    return String(v ?? '')
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+</script>
+<script src="{% static 'core/site.js' %}"></script>
+
+</body>
+</html>
