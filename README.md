@@ -16,6 +16,17 @@ python manage.py runserver
 
 Open http://127.0.0.1:8000/
 
+## Deploy on Render
+
+This repository includes a `render.yaml` Blueprint configuration. In Render:
+
+1. Create a new **Blueprint** and select the `Yash-Choubey09/Glawbit` repository.
+2. Set `DJANGO_ALLOWED_HOSTS` to the Render hostname, for example `glawbit-dsxray.onrender.com`.
+3. Set `DJANGO_CSRF_TRUSTED_ORIGINS` to the HTTPS URL, for example `https://glawbit-dsxray.onrender.com`.
+4. Deploy. Render installs dependencies, collects static files, applies migrations, and starts Gunicorn.
+
+The production service uses `DJANGO_DEBUG=False`, a generated `DJANGO_SECRET_KEY`, WhiteNoise for static files, and the Render `$PORT`.
+
 ## API
 
 `POST /analyze/` with form field `job_description` returns JSON containing:

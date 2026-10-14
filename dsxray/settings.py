@@ -11,14 +11,24 @@ SECRET_KEY = os.environ.get(
 )
 
 
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "testserver",
-    "*",
+]
+
+extra_hosts = os.environ.get("DJANGO_ALLOWED_HOSTS", "")
+if extra_hosts:
+    ALLOWED_HOSTS.extend(
+        host.strip() for host in extra_hosts.split(",") if host.strip()
+    )
+
+csrf_origins = os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "")
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip() for origin in csrf_origins.split(",") if origin.strip()
 ]
 
 
@@ -43,6 +53,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
 
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
 
@@ -124,6 +135,14 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 DEFAULT_AUTO_FIELD = (
     "django.db.models.BigAutoField"
