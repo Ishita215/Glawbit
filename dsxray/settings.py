@@ -15,7 +15,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 
 
 ALLOWED_HOSTS = [
-    "glawbit-m38r6tfv1-ishithas-projects.vercel.app",
+    ".vercel.app",
     "localhost",
     "127.0.0.1",
 ]
@@ -26,10 +26,19 @@ if extra_hosts:
         host.strip() for host in extra_hosts.split(",") if host.strip()
     )
 
+vercel_host = os.environ.get("VERCEL_URL", "").strip()
+if vercel_host:
+    ALLOWED_HOSTS.append(vercel_host)
+
 csrf_origins = os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "")
 CSRF_TRUSTED_ORIGINS = [
-    origin.strip() for origin in csrf_origins.split(",") if origin.strip()
+    "https://*.vercel.app"
 ]
+CSRF_TRUSTED_ORIGINS.extend(
+    origin.strip() for origin in csrf_origins.split(",") if origin.strip()
+)
+if vercel_host:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{vercel_host}")
 
 
 INSTALLED_APPS = [
