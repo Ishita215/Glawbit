@@ -1,0 +1,69 @@
+{
+  "model_version": "2.0",
+  "training_date": "2026-10-07T18:33:21.480613Z",
+  "dataset": "JDS Skill Traits.xlsx",
+  "n_samples": 139,
+  "n_features": 5,
+  "feature_columns": [
+    "big_data_skills",
+    "maths-stats_skills",
+    "coding_skills",
+    "ai_and_ml_skills",
+    "dashboard_and_storytelling_skills"
+  ],
+  "target_column": "salary_hike_high_or_low",
+  "class_distribution": {
+    "high": 73,
+    "low": 66
+  },
+  "cv_strategy": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)",
+  "scoring_metric": "roc_auc",
+  "models": {
+    "logistic_regression": {
+      "fold_scores": [
+        0.935897,
+        0.938462,
+        0.84359,
+        0.943878,
+        0.848901
+      ],
+      "mean_auc": 0.902145,
+      "std_auc": 0.045746,
+      "cv_elapsed_s": 27.4
+    },
+    "random_forest": {
+      "fold_scores": [
+        0.874359,
+        0.887179,
+        0.776923,
+        0.923469,
+        0.821429
+      ],
+      "mean_auc": 0.856672,
+      "std_auc": 0.05159,
+      "cv_elapsed_s": 3.13
+    },
+    "dummy": {
+      "fold_scores": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean_auc": 0.5,
+      "std_auc": 0.0,
+      "cv_elapsed_s": 0.09
+    }
+  },
+  "selected_model": "logistic_regression",
+  "selection_reason": "Logistic Regression was selected because it provides strong cross-validated discrimination (mean AUC compared to Random Forest) while remaining fully interpretable on this small structured dataset (n=139).  Its coefficients directly expose the contribution of each capability dimension.",
+  "lr_coefficients": {
+    "big_data_skills": 0.6837,
+    "maths-stats_skills": 1.2704,
+    "coding_skills": 0.5425,
+    "ai_and_ml_skills": 0.76,
+    "dashboard_and_storytelling_skills": 1.1185
+  },
+  "interpretability_note": "This model measures association between capability scores and the provided salary-hike outcome labels in the JDS dataset.  It must not be described as predicting employee success in general."
+}

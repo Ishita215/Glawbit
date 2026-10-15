@@ -1,0 +1,27 @@
+{
+  "Big Data": {
+    "pct": 7.2,
+    "jobs": 1144,
+    "total": 15840
+  },
+  "Maths / Statistics": {
+    "pct": 8.4,
+    "jobs": 1338,
+    "total": 15840
+  },
+  "Coding": {
+    "pct": 30.5,
+    "jobs": 4828,
+    "total": 15840
+  },
+  "AI / ML": {
+    "pct": 8.2,
+    "jobs": 1293,
+    "total": 15840
+  },
+  "Dashboard & Storytelling": {
+    "pct": 14.5,
+    "jobs": 2297,
+    "total": 15840
+  }
+}

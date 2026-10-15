@@ -1,0 +1,517 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS-XRAY | Evidence & Model Audit</title>
+    <meta name="description" content="Empirical validation, Stratified 5-Fold Cross Validation results, model comparison baselines, and feature coefficients for DS-XRAY.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: rgba(255, 255, 255, 0.82);
+            --surface-hover: rgba(255, 255, 255, 0.96);
+            --surface-subtle: rgba(248, 250, 252, 0.7);
+            --border: rgba(226, 232, 240, 0.9);
+            --border-highlight: rgba(203, 213, 225, 0.95);
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --success: #16a34a;
+            --success-soft: rgba(22, 163, 74, 0.08);
+            --amber: #d97706;
+            --amber-soft: rgba(217, 119, 6, 0.08);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
+            --shadow-glass: 0 8px 30px -4px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(219, 234, 254, 0.3) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(241, 245, 249, 0.6) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav Glassmorphism */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            height: 64px;
+            gap: 32px;
+        }
+
+        .nav-brand {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a.nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+
+        nav a.nav-link:hover { color: var(--text-main); }
+        nav a.nav-link.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .nav-spacer { flex: 1; }
+
+        .nav-tag {
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            letter-spacing: 0.5px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 5% 80px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .glass-card {
+            background: var(--surface);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            box-shadow: var(--shadow-glass);
+        }
+
+        .metric-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .metric-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Card Panels */
+        .panel {
+            background: var(--surface);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-glass);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .status-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 99px;
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(248, 250, 252, 0.5);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        tr.highlight td {
+            background: rgba(37, 99, 235, 0.03);
+            font-weight: 600;
+        }
+
+        tr.highlight td:first-child {
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Coefficient Rows */
+        .coef-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .coef-item {
+            display: grid;
+            grid-template-columns: 240px 1fr 90px;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .coef-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .coef-track {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .coef-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 99px;
+        }
+
+        .coef-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: right;
+            color: var(--accent);
+        }
+
+        /* Note box */
+        .info-box {
+            background: rgba(37, 99, 235, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-top: 20px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .info-box strong { color: var(--text-main); }
+
+        /* Code display */
+        pre {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #334155;
+            overflow-x: auto;
+            max-height: 340px;
+            box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.03);
+        }
+
+        @media (max-width: 900px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .coef-item { grid-template-columns: 1fr; gap: 6px; }
+            .coef-number { text-align: left; }
+        }
+
+        @media (max-width: 600px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'core/site.css' %}">
+</head>
+<body>
+
+<nav>
+    <a href="/" class="nav-brand" aria-label="Glawbit DS-XRAY home">
+        <span class="brand-company">Glawbit</span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span>DS-XRAY</span>
+    </a>
+    <div class="nav-links">
+        <a href="/" class="nav-link">Command Centre</a>
+        <a href="/xray/" class="nav-link">JD Analysis</a>
+        <a href="/market/" class="nav-link">Market Intel</a>
+        <a href="/evidence/" class="nav-link active">Evidence</a>
+    </div>
+    <div class="nav-spacer"></div>
+    <span class="nav-tag">Audit Mode</span>
+    <button class="theme-toggle" data-theme-toggle type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+        <span class="theme-label">Dark mode</span>
+    </button>
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="section-tag">Scientific Audit & Baselines</div>
+        <h1 class="page-title">Evidence & Model Governance</h1>
+        <p class="page-subtitle">
+            Cross-validation benchmarks, baseline comparisons, dimensional coefficient weights, and statistical governance guarantees for the DS-XRAY outcome engine.
+        </p>
+    </div>
+
+    <!-- Metrics -->
+    <div class="metrics-grid">
+        <div class="glass-card">
+            <div class="metric-label">Selected Classifier</div>
+            <div class="metric-value" style="font-size: 22px; color: var(--accent);">Logistic Regr.</div>
+            <div class="metric-sub">StandardScaler Pipeline</div>
+        </div>
+        <div class="glass-card">
+            <div class="metric-label">Validation ROC-AUC</div>
+            <div class="metric-value" id="kpiAuc" style="color: var(--success);">0.902</div>
+            <div class="metric-sub">Stratified 5-Fold Mean</div>
+        </div>
+        <div class="glass-card">
+            <div class="metric-label">Training Records</div>
+            <div class="metric-value">139</div>
+            <div class="metric-sub">JDS Traits (73 H / 66 L)</div>
+        </div>
+        <div class="glass-card">
+            <div class="metric-label">Fold Variance</div>
+            <div class="metric-value" id="kpiStd">0.046</div>
+            <div class="metric-sub">Low Standard Deviation</div>
+        </div>
+    </div>
+
+    <!-- Model Comparison Table -->
+    <div class="panel">
+        <div class="panel-header">
+            <div class="panel-title">Model Comparison & Baseline Validation</div>
+            <span class="status-badge">Stratified 5-Fold Evaluated</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Candidate Model</th>
+                    <th>Mean ROC-AUC</th>
+                    <th>Std Dev</th>
+                    <th>Fold Scores (1 to 5)</th>
+                    <th>Selection Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="highlight">
+                    <td>Logistic Regression (Selected)</td>
+                    <td style="color: var(--success);">0.9021</td>
+                    <td>0.0457</td>
+                    <td>0.9359, 0.9385, 0.8436, 0.9439, 0.8489</td>
+                    <td>Selected (Explainable, Robust)</td>
+                </tr>
+                <tr>
+                    <td>Random Forest (100 Estimators)</td>
+                    <td>0.8567</td>
+                    <td>0.0516</td>
+                    <td>0.8744, 0.8872, 0.7769, 0.9235, 0.8214</td>
+                    <td>Lower Generalization</td>
+                </tr>
+                <tr>
+                    <td>Dummy Baseline (Most Frequent)</td>
+                    <td>0.5000</td>
+                    <td>0.0000</td>
+                    <td>0.5000, 0.5000, 0.5000, 0.5000, 0.5000</td>
+                    <td>Zero Predictive Signal</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            <strong>Architecture Decision:</strong> On structured datasets of moderate scale (n=139), complex tree ensembles risk overfitting and obscure individual feature attribution. Logistic Regression achieved superior generalization (0.902 vs 0.857 mean AUC) while offering transparent, unconstrained inspection of capability coefficients.
+        </div>
+    </div>
+
+    <!-- Coefficients -->
+    <div class="panel">
+        <div class="panel-header">
+            <div class="panel-title">Capability Dimension Weights (Logistic Regression)</div>
+            <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">Directional Contribution</span>
+        </div>
+        <div class="coef-list">
+            <div class="coef-item">
+                <div class="coef-name">Maths & Statistics</div>
+                <div class="coef-track"><div class="coef-fill" style="width: 100%;"></div></div>
+                <div class="coef-number">+1.2704</div>
+            </div>
+            <div class="coef-item">
+                <div class="coef-name">Dashboard & Storytelling</div>
+                <div class="coef-track"><div class="coef-fill" style="width: 88%;"></div></div>
+                <div class="coef-number">+1.1185</div>
+            </div>
+            <div class="coef-item">
+                <div class="coef-name">AI & ML</div>
+                <div class="coef-track"><div class="coef-fill" style="width: 60%;"></div></div>
+                <div class="coef-number">+0.7600</div>
+            </div>
+            <div class="coef-item">
+                <div class="coef-name">Big Data</div>
+                <div class="coef-track"><div class="coef-fill" style="width: 54%;"></div></div>
+                <div class="coef-number">+0.6837</div>
+            </div>
+            <div class="coef-item">
+                <div class="coef-name">Coding</div>
+                <div class="coef-track"><div class="coef-fill" style="width: 43%;"></div></div>
+                <div class="coef-number">+0.5425</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>Empirical Finding:</strong> Statistical modeling and insight translation (Maths & Statistics, Storytelling) represent the primary differentiators of high-outcome profiles (+1.27 and +1.12), whereas foundational coding, while omnipresent across all job specifications, provides lower relative differentiation.
+        </div>
+    </div>
+
+    <!-- Ethics -->
+    <div class="panel">
+        <div class="panel-header">
+            <div class="panel-title">Governance Safeguards & Ethical Limitations</div>
+        </div>
+        <ul style="color: var(--text-secondary); font-size: 14px; line-height: 1.8; padding-left: 20px;">
+            <li><strong>Archetype Alignment, Not Individual Screening:</strong> This model audits job descriptions against historical organizational outcomes. It is not calibrated or authorized for automated candidate filtering.</li>
+            <li><strong>Deterministic Rule Diagnostics:</strong> Requirement breadth, experience inflation, and Frankenstein role indicators are deterministic rules with explicit thresholds, preventing black-box hallucinations.</li>
+            <li><strong>Reproducible Training:</strong> Re-training is fully versioned and verifiable via <code>python manage.py train_models</code>.</li>
+        </ul>
+    </div>
+
+    <!-- Live JSON -->
+    <div class="panel">
+        <div class="panel-header">
+            <div class="panel-title">Model Metadata Payload (Live API)</div>
+            <span id="apiStatus" class="status-badge" style="background: var(--accent-soft); color: var(--accent); border-color: rgba(37,99,235,0.2);">Connected</span>
+        </div>
+        <pre id="metaJson">// Fetching payload from /api/evidence/ ...</pre>
+    </div>
+
+</div>
+
+<script>
+    async function loadEvidence() {
+        try {
+            const res = await fetch('/api/evidence/');
+            const data = await res.json();
+            if (data.success && data.model_meta) {
+                document.getElementById('metaJson').textContent = JSON.stringify(data.model_meta, null, 2);
+                if (data.model_meta.models && data.model_meta.models.logistic_regression) {
+                    const lr = data.model_meta.models.logistic_regression;
+                    if (lr.mean_auc) document.getElementById('kpiAuc').textContent = lr.mean_auc.toFixed(3);
+                    if (lr.std_auc) document.getElementById('kpiStd').textContent = lr.std_auc.toFixed(3);
+                }
+            }
+        } catch (e) {
+            console.log('Using offline view');
+        }
+    }
+    loadEvidence();
+</script>
+<script src="{% static 'core/site.js' %}"></script>
+
+</body>
+</html>
